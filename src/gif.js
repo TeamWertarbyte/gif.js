@@ -2,7 +2,6 @@ import EventEmitter from 'wolfy87-eventemitter';
 import browser from './browser';
 
 const defaults = {
-  workerScript: 'gif.worker.js',
   workers: 2,
   repeat: 0, // repeat forever, -1 = repeat once
   background: '#fff',
@@ -33,6 +32,10 @@ class GIF extends EventEmitter {
     for (let key in defaults) {
       let value = defaults[key];
       if (this.options[key] == null) { this.options[key] = value; }
+    }
+
+    if (!options.worker) {
+      throw new Error('No worker specified');
     }
   }
 
@@ -123,7 +126,7 @@ class GIF extends EventEmitter {
     let numWorkers = Math.min(this.options.workers, this.frames.length);
     __range__(this.freeWorkers.length, numWorkers, false).forEach(i => {
       console.log(`spawning worker ${ i }`);
-      let worker = new Worker(this.options.workerScript);
+      let worker = new this.options.worker();
       worker.onmessage = event => {
         this.activeWorkers.splice(this.activeWorkers.indexOf(worker), 1);
         this.freeWorkers.push(worker);

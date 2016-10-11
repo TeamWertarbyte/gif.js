@@ -3,13 +3,12 @@
   "version": "2.0.0-pre1",
   "description": "JavaScript GIF encoding library",
   "author": "Johan Nordberg <code@johan-nordberg.com>",
-  "main": "lib/gif.js",
+  "main": "./lib/gif.js",
   "repository": "https://github.com/TeamWertarbyte/gif.js.git",
   "scripts": {
     "build": "babel src -d lib",
     "prepublish": "babel src -d lib"
   },
-  "browser": "./dist/gif.js",
   "keywords": [
     "gif",
     "animation",
