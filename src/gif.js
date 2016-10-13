@@ -41,7 +41,7 @@ class GIF extends EventEmitter {
 
   setOption(key, value) {
     this.options[key] = value;
-    if ((this._canvas != null) && key === 'width' || key === 'height') {
+    if (this._canvas != null && (key === 'width' || key === 'height')) {
       return this._canvas[key] = value;
     }
   }
